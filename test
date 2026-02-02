@@ -1,0 +1,322 @@
+{
+  "dashboardMetadata": {
+    "name": "K8s Spring Microservices - PRO Governance Dashboard",
+    "shared": true,
+    "owner": "admin"
+  },
+  "tiles": [
+    {
+      "name": "=== SERVICE RELIABILITY ===",
+      "tileType": "MARKDOWN",
+      "configured": true,
+      "bounds": {
+        "top": 0,
+        "left": 0,
+        "width": 1216,
+        "height": 80
+      },
+      "markdown": "## Service Reliability & Risk Overview"
+    },
+    {
+      "name": "Availability %",
+      "tileType": "DATA_EXPLORER",
+      "configured": true,
+      "bounds": {
+        "top": 80,
+        "left": 0,
+        "width": 608,
+        "height": 304
+      },
+      "queries": [
+        {
+          "metric": "builtin:service.successRate",
+          "aggregation": "AVG"
+        }
+      ]
+    },
+    {
+      "name": "P95 Latency (Top 5)",
+      "tileType": "DATA_EXPLORER",
+      "configured": true,
+      "bounds": {
+        "top": 80,
+        "left": 608,
+        "width": 608,
+        "height": 304
+      },
+      "queries": [
+        {
+          "metric": "builtin:service.response.time",
+          "aggregation": "P95",
+          "splitBy": [
+            "dt.entity.service"
+          ],
+          "limit": 5,
+          "sort": {
+            "direction": "DESC"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Error Rate (Top 5)",
+      "tileType": "DATA_EXPLORER",
+      "configured": true,
+      "bounds": {
+        "top": 384,
+        "left": 0,
+        "width": 608,
+        "height": 304
+      },
+      "queries": [
+        {
+          "metric": "builtin:service.errors.server.rate",
+          "aggregation": "AVG",
+          "splitBy": [
+            "dt.entity.service"
+          ],
+          "limit": 5,
+          "sort": {
+            "direction": "DESC"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Throughput (Requests/min)",
+      "tileType": "DATA_EXPLORER",
+      "configured": true,
+      "bounds": {
+        "top": 384,
+        "left": 608,
+        "width": 608,
+        "height": 304
+      },
+      "queries": [
+        {
+          "metric": "builtin:service.requestCount.total",
+          "aggregation": "SUM",
+          "splitBy": [
+            "dt.entity.service"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "=== KUBERNETES HEALTH ===",
+      "tileType": "MARKDOWN",
+      "configured": true,
+      "bounds": {
+        "top": 688,
+        "left": 0,
+        "width": 1216,
+        "height": 80
+      },
+      "markdown": "## Kubernetes Saturation & Stability"
+    },
+    {
+      "name": "Pod Restarts",
+      "tileType": "DATA_EXPLORER",
+      "configured": true,
+      "bounds": {
+        "top": 768,
+        "left": 0,
+        "width": 608,
+        "height": 304
+      },
+      "queries": [
+        {
+          "metric": "builtin:kubernetes.pod.restarts",
+          "aggregation": "SUM",
+          "splitBy": [
+            "dt.entity.kubernetes_pod"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "CPU Usage",
+      "tileType": "DATA_EXPLORER",
+      "configured": true,
+      "bounds": {
+        "top": 768,
+        "left": 608,
+        "width": 608,
+        "height": 304
+      },
+      "queries": [
+        {
+          "metric": "builtin:kubernetes.container.cpu.usage",
+          "aggregation": "AVG",
+          "splitBy": [
+            "dt.entity.kubernetes_container"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "CPU Throttling",
+      "tileType": "DATA_EXPLORER",
+      "configured": true,
+      "bounds": {
+        "top": 1072,
+        "left": 0,
+        "width": 608,
+        "height": 304
+      },
+      "queries": [
+        {
+          "metric": "builtin:kubernetes.container.cpu.throttled",
+          "aggregation": "SUM",
+          "splitBy": [
+            "dt.entity.kubernetes_container"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Memory Usage",
+      "tileType": "DATA_EXPLORER",
+      "configured": true,
+      "bounds": {
+        "top": 1072,
+        "left": 608,
+        "width": 608,
+        "height": 304
+      },
+      "queries": [
+        {
+          "metric": "builtin:kubernetes.container.memory.usage",
+          "aggregation": "AVG",
+          "splitBy": [
+            "dt.entity.kubernetes_container"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "=== JVM HEALTH ===",
+      "tileType": "MARKDOWN",
+      "configured": true,
+      "bounds": {
+        "top": 1376,
+        "left": 0,
+        "width": 1216,
+        "height": 80
+      },
+      "markdown": "## JVM & Spring Health"
+    },
+    {
+      "name": "Heap Used",
+      "tileType": "DATA_EXPLORER",
+      "configured": true,
+      "bounds": {
+        "top": 1456,
+        "left": 0,
+        "width": 608,
+        "height": 304
+      },
+      "queries": [
+        {
+          "metric": "builtin:tech.jvm.memory.used",
+          "aggregation": "AVG",
+          "splitBy": [
+            "dt.entity.service"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "GC Time",
+      "tileType": "DATA_EXPLORER",
+      "configured": true,
+      "bounds": {
+        "top": 1456,
+        "left": 608,
+        "width": 608,
+        "height": 304
+      },
+      "queries": [
+        {
+          "metric": "builtin:tech.jvm.gc.time",
+          "aggregation": "SUM",
+          "splitBy": [
+            "dt.entity.service"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Thread Count",
+      "tileType": "DATA_EXPLORER",
+      "configured": true,
+      "bounds": {
+        "top": 1760,
+        "left": 0,
+        "width": 608,
+        "height": 304
+      },
+      "queries": [
+        {
+          "metric": "builtin:tech.jvm.threads",
+          "aggregation": "AVG",
+          "splitBy": [
+            "dt.entity.service"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "=== DATABASE HEALTH ===",
+      "tileType": "MARKDOWN",
+      "configured": true,
+      "bounds": {
+        "top": 2064,
+        "left": 0,
+        "width": 1216,
+        "height": 80
+      },
+      "markdown": "## PostgreSQL Monitoring"
+    },
+    {
+      "name": "Connections Used",
+      "tileType": "DATA_EXPLORER",
+      "configured": true,
+      "bounds": {
+        "top": 2144,
+        "left": 0,
+        "width": 608,
+        "height": 304
+      },
+      "queries": [
+        {
+          "metric": "builtin:tech.postgresql.connections",
+          "aggregation": "AVG",
+          "splitBy": [
+            "dt.entity.database"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Locks",
+      "tileType": "DATA_EXPLORER",
+      "configured": true,
+      "bounds": {
+        "top": 2144,
+        "left": 608,
+        "width": 608,
+        "height": 304
+      },
+      "queries": [
+        {
+          "metric": "builtin:tech.postgresql.locks",
+          "aggregation": "SUM",
+          "splitBy": [
+            "dt.entity.database"
+          ]
+        }
+      ]
+    }
+  ]
+}
